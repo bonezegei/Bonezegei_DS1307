@@ -6,20 +6,41 @@
 */
 
 
-#include "Bonezegei_DS1307.h"
+Bonezegei_DS3231::Bonezegei_DS3231() {
+}
 
-Bonezegei_DS1307::Bonezegei_DS1307() {}
-Bonezegei_DS1307::Bonezegei_DS1307(uint8_t addr) {}
+Bonezegei_DS3231::Bonezegei_DS3231(uint8_t addr) {
+  _addr = addr;
+}
 
-char Bonezegei_DS1307::begin() {
-  return 0;
+char Bonezegei_DS3231::begin() {
+  if (Wire.begin()) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
-uint8_t Bonezegei_DS1307::convert(uint8_t data) {
-  return 0;
+
+uint8_t Bonezegei_DS3231::convert(uint8_t data) {
+  uint8_t result = data & 0x0f;
+  result += ((data & 0xf0) >> 4) * 10;
+  return result;
 }
-uint8_t Bonezegei_DS1307::convertBCD(int data) {
-  return 0;
+
+uint8_t Bonezegei_DS3231::convertBCD(int data) {
+  int tmp1;
+  if (data > 10) {
+    tmp1 = (int)(data / 10);
+  } else {
+    tmp1 = 0;
+  }
+  int tmp2 = data - (tmp1 * 10);
+
+  uint8_t result = (tmp1 << 4) | tmp2;
+
+  return result;
 }
+
 char Bonezegei_DS1307::getTime() {
   return 0;
 }
