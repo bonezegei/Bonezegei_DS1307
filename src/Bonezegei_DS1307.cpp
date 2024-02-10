@@ -5,6 +5,7 @@
   Updated: Feb 2024
 */
 
+#include "Bonezegei_DS3231.h"
 
 Bonezegei_DS3231::Bonezegei_DS3231() {
 }
