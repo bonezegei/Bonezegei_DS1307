@@ -2,6 +2,7 @@
   This Library is written for DS1307 RTC
   Author: Bonezegei (Jofel Batutay)
   Date: Jan 28 2024
+  Updated: Feb 2024
 */
 
 #ifndef _BONEZEGEI_DS1307_H_
