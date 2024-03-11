@@ -2,7 +2,7 @@
   This Library is written for DS1307 RTC
   Author: Bonezegei (Jofel Batutay)
   Date: Jan 28 2024
-  Updated: Feb 2024
+  Updated: March 2024
 */
 
 #include "Bonezegei_DS1307.h"
@@ -10,11 +10,12 @@
 Bonezegei_DS1307::Bonezegei_DS1307() {}
 Bonezegei_DS1307::Bonezegei_DS1307(uint8_t addr) {
   _addr = addr;
+ 
 }
 
 char Bonezegei_DS1307::begin() {
-  if (Wire.begin()) {
-    Wire.beginTransmission(_addr);
+	Wire.begin();
+	Wire.beginTransmission(_addr);
     Wire.write(0x00);
     Wire.endTransmission();
 
@@ -31,6 +32,8 @@ char Bonezegei_DS1307::begin() {
       Wire.write(0x7F & _data[0]);
       Wire.endTransmission();
     }
+
+  if (r) {
 
     return r;
   } else {
@@ -202,4 +205,5 @@ void Bonezegei_DS1307::setDate(const char *d) {
   Wire.endTransmission();
 }
 void Bonezegei_DS1307::setDay(uint8_t d) {
+  _data[2] = convertBCD(d);
 }
