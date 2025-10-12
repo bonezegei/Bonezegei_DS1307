@@ -1,7 +1,8 @@
 /*
   Get Time And Date
   Author: Bonezegei (Jofel Batutay)
-  Date: Feb 2024
+  Date Created: Feb 2024
+  Last Update: Oct 2025
 */
 
 #include <Bonezegei_DS1307.h>
@@ -16,7 +17,12 @@ void setup() {
 void loop() {
 
   if (rtc.getTime()) {
-    Serial.printf("Time %02d:%02d:%02d ", rtc.getHour(), rtc.getMinute(), rtc.getSeconds());
+    //Serial.printf only does not work on atmega
+    //Serial.printf("Time %02d:%02d:%02d ", rtc.getHour(), rtc.getMinute(), rtc.getSeconds());
+    char time_data[32];
+    sprintf(time_data,"Time %02d:%02d:%02d ", rtc.getHour(), rtc.getMinute(), rtc.getSeconds());
+    Serial.print(time_data);
+
 
     if (rtc.getFormat() == 12) {  // returns 12 or 24 hour format
 
@@ -27,7 +33,11 @@ void loop() {
       }
     }
 
-    Serial.printf("Date %02d-%02d-%d \n", rtc.getMonth(), rtc.getDate(), rtc.getYear());
+    //Serial.printf only does not work on atmega
+    //Serial.printf("Date %02d-%02d-%d \n", rtc.getMonth(), rtc.getDate(), rtc.getYear());
+    char date_data[32];
+    sprintf(date_data,"Date %02d-%02d-%d \n", rtc.getMonth(), rtc.getDate(), rtc.getYear());
+    Serial.print(date_data);
   }
   
   delay(1000);
