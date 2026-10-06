@@ -205,5 +205,8 @@ void Bonezegei_DS1307::setDate(const char *d) {
   Wire.endTransmission();
 }
 void Bonezegei_DS1307::setDay(uint8_t d) {
-  _data[2] = convertBCD(d);
+    Wire.beginTransmission(_addr);
+    Wire.write(0x03);
+    Wire.write(d);
+    Wire.endTransmission();
 }
