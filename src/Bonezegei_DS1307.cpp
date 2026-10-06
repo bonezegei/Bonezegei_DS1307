@@ -193,9 +193,8 @@ void Bonezegei_DS1307::setDate(const char *d) {
   sscanf(d, "%d/%d/%d", &mon, &date, &year);
 
   _data[4] = convertBCD(date);
-  _data[5] &= 0x80;
   _data[5] = convertBCD(mon);
-  _data[6] |= convertBCD(year);
+  _data[6] = convertBCD(year);
 
   Wire.beginTransmission(_addr);
   Wire.write(0x04);
