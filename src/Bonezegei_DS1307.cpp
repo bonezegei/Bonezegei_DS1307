@@ -47,7 +47,7 @@ uint8_t Bonezegei_DS1307::convert(uint8_t data) {
 }
 uint8_t Bonezegei_DS1307::convertBCD(int data) {
   int tmp1;
-  if (data > 10) {
+  if (data >= 10) {
     tmp1 = (int)(data / 10);
   } else {
     tmp1 = 0;
