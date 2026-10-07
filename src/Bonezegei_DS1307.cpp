@@ -47,7 +47,7 @@ uint8_t Bonezegei_DS1307::convert(uint8_t data) {
 }
 uint8_t Bonezegei_DS1307::convertBCD(int data) {
   int tmp1;
-  if (data > 10) {
+  if (data >= 10) {
     tmp1 = (int)(data / 10);
   } else {
     tmp1 = 0;
@@ -193,9 +193,8 @@ void Bonezegei_DS1307::setDate(const char *d) {
   sscanf(d, "%d/%d/%d", &mon, &date, &year);
 
   _data[4] = convertBCD(date);
-  _data[5] &= 0x80;
   _data[5] = convertBCD(mon);
-  _data[6] |= convertBCD(year);
+  _data[6] = convertBCD(year);
 
   Wire.beginTransmission(_addr);
   Wire.write(0x04);
@@ -205,5 +204,8 @@ void Bonezegei_DS1307::setDate(const char *d) {
   Wire.endTransmission();
 }
 void Bonezegei_DS1307::setDay(uint8_t d) {
-  _data[2] = convertBCD(d);
+    Wire.beginTransmission(_addr);
+    Wire.write(0x03);
+    Wire.write(d);
+    Wire.endTransmission();
 }
